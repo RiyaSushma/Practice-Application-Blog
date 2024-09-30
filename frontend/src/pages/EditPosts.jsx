@@ -4,7 +4,7 @@ import appwriteService from '../appwrite/appwriteConfig';
 import { useNavigate, useParams } from 'react-router-dom';
 
 function EditPosts() {
-    const [post, setPost] = useState([]);
+    const [post, setPost] = useState(null);
     
     const { slug } = useParams();
     const navigate = useNavigate();
@@ -12,6 +12,7 @@ function EditPosts() {
     useEffect(() => {
         if(slug) {
             appwriteService.getPost(slug).then((postItem) => {
+                console.log("post item is: ", postItem);
                 if(postItem) {
                     setPost(postItem);
                 }
@@ -23,7 +24,7 @@ function EditPosts() {
   return ( post ? (
     <div className='py-8'>
         <Container>
-            <PostForm post={posts}/>
+            <PostForm post={post}/>
         </Container>
     </div>
   ) : null);

@@ -46,21 +46,22 @@ export class AuthService{
         return null;
     }
 
-    // async logoutUser({ currentUser }) {
-    //     try {
-    //         return await this.account.deleteSession(currentUser)
-    //     } catch(error) {
-    //         throw error;
-    //     }
-    // }
-
-    async logout() {
+    async logoutUser({ currentUser }) {
         try {
-            await this.account.deleteSessions();
-        } catch (error) {
-            console.log("Appwrite serive :: logout :: error", error);
+            await this.account.deleteSession(currentUser);
+            return true;
+        } catch(error) {
+            throw error;
         }
     }
+
+    // async logout() {
+    //     try {
+    //         await this.account.deleteSessions();
+    //     } catch (error) {
+    //         console.log("Appwrite serive :: logout :: error", error);
+    //     }
+    // }
 }
 
 const authService = new AuthService();

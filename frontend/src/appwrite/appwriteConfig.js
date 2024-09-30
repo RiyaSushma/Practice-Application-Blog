@@ -66,12 +66,11 @@ export class Service {
 
     async getPost(slug) {
         try {
-            await this.databases.getDocument(
-                config.appwriteUrl,
+            return await this.databases.getDocument(
+                config.appwriteDatabaseId,
                 config.appwriteCollectionId,
                 slug
             );
-            return true;
         } catch(error) {
             console.log("Appwrite service :: fetchPost :: error: ", error);
             return false;
@@ -81,12 +80,11 @@ export class Service {
 
     async getAllPost(queries = [Query.equal("status", "active")]) {
         try {
-            await this.databases.listDocument(
-                config.appwriteUrl,
+            return await this.databases.listDocuments(
+                config.appwriteDatabaseId,
                 config.appwriteCollectionId,
                 queries,
             );
-            return true;
         } catch(error) {
             console.log("Appwrite service :: fetchPost :: error: ", error);
             return false;

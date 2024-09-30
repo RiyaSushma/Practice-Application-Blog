@@ -10,12 +10,17 @@ function PostForm({ post }) {
     const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
         defaultValues: {
             title: post?.title || '',
-            slug: post?.slug || '',
+            slug: post?.$id || '',
             content: post?.content || '',
             status: post?.status || 'active'
         }
     });
-    const { userData } = useSelector(state => state.auth.userData);
+
+    const userData = useSelector(state => state.auth.userData);
+
+    useEffect(() => {
+        console.log("posts are: ", post);
+    }, [post]);
 
     const submit = async(data) => {
         if(post) {
@@ -35,10 +40,11 @@ function PostForm({ post }) {
             }
 
         } else {
-            const file = data.image[0] ? await appwriteService.fileUpload(data.image[0]) : null;
+            const file = await appwriteService.fileUpload(data.image[0]);
             if(file) {
                 const field = file.$id;
                 data.featuredImage = field;
+                console.log("field is: ", field);
 
                 const dbPost = await appwriteService.createPost({
                     ...data,
@@ -63,6 +69,10 @@ function PostForm({ post }) {
         }
         return "";
     }, []);
+
+    useEffect(() => {
+        console.log("post is: ", post);
+    }, post);
 
     useEffect(() => {
         const subscription = watch((value, {name}) => {

@@ -3,15 +3,20 @@ import appwriteService from '../appwrite/appwriteConfig';
 import {Link, useNavigate, useParams} from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Container, Button } from '../components';
+import parse from 'html-react-parser';
 
 function Post() {
-    const [post, setPost] = useState([]);
+    const [post, setPost] = useState(null);
     const { slug } = useParams();
     const navigate = useNavigate();
 
-    const userData = useSelector((state) => state.userData);
+    const userData = useSelector((state) => state.auth.userData);
 
     const isAuthor = post && userData ? post.userId === userData.$id : false;
+
+    useEffect(() => {
+        console.log("parameter is: ", slug);
+    }, []);
 
     useEffect(() => {
         if(slug) {
@@ -36,6 +41,10 @@ function Post() {
         });
     }
 
+    useEffect(() => {
+        console.log("post data is: ", post);
+    }, [post]);
+
     return post ? (
         <div className='py-8'>
             <Container>
@@ -43,7 +52,7 @@ function Post() {
                     <img
                         src={appwriteService.filePreview(post.featuredImage)}
                         alt={post.title}
-                        className="rounded-xl"
+                        className="rounded-xl w-1/4 "
                     />
 
                     {isAuthor && (

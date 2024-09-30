@@ -1,11 +1,12 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import authService from "../../appwrite/auth.js";
 import { logout } from '../../store/authSlice.js';
 
 function LogoutBtn() {
     const dispatch = useDispatch();
+    const authSession = useSelector((state) => state.auth.userData);
     const logoutHandler = () => {
-        const currentUser = null;
+        const currentUser = 'current';
         authService.logoutUser({ currentUser })
         .then(() => dispatch(logout()));
     }

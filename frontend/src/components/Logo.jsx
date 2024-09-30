@@ -1,6 +1,9 @@
+
 function Logo({ width = '5rem' }) {
     return (
-        <div>Logo</div>
+        <div className="w-12">
+            <img src="../../images/logo.png" className="w-full" />
+        </div>
     );
 }
 

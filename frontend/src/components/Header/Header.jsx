@@ -34,7 +34,7 @@ function Header() {
         },
     ];
     return (
-        <header className="py-3 shadow bg-gray-500">
+        <header className="py-3 shadow bg-violet-300">
             <Container>
                 <nav className="flex">
                     <div className="mr-4">
@@ -48,6 +48,7 @@ function Header() {
                                 <li key={item.name}>
                                     <button
                                         onClick={() => navigate(item.url)}
+                                        className="ml-2"
                                     >
                                         {item.name}
                                     </button>

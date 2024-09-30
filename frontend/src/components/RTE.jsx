@@ -1,16 +1,28 @@
-import React from "react";
-import { Editor } from "tinymce";
+import React, { useRef } from "react";
+import { Editor } from "@tinymce/tinymce-react";
 import { Controller } from "react-hook-form";
 
 export default function RTE({ name, control, label, defaultValue = "" }) {
+    const editorRef = useRef(null);
+    const log = () => {
+        if(editorRef.current) {
+            console.log(editorRef.current.getContent());
+        }
+    }
+
     return (
         <div className="w-full">
             {label && <label className="inline-block mb-1 pl-1">{label}</label>}
             <Controller
                 name={name || "content"}
+                control={control}
                 render={({ field: { onChange } }) => (
                     <Editor
                         initialValue={defaultValue}
+                        apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
+                        onInit={(_evt, editor) => {
+                            editorRef.current = editor;
+                        }}
                         init={{
                             initialValue: defaultValue,
                             height: 500,
