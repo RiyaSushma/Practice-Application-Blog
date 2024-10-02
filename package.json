@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "tinymce-react": "^1.3.2"
+  }
+}
