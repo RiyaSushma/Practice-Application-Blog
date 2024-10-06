@@ -11,6 +11,7 @@ function Header() {
         {
             name: "Home",
             url: "/",
+            active: true,
         },
         {
             name: "Login",
@@ -34,22 +35,17 @@ function Header() {
         },
     ];
     return (
-        <header className="py-3 shadow bg-violet-300">
+        <header className="py-3 shadow bg-violet-900">
             <Container>
                 <nav className="flex">
-                    <div className="mr-4">
-                        <Link to="/">
-                            <Logo width="4rem" />
-                        </Link>
-                    </div>
+                    <Link to="/">
+                        <Logo width="4rem" />
+                    </Link>
                     <ul className="flex ml-auto">
                         {navItems.map((item) =>
                             item.active ? (
                                 <li key={item.name}>
-                                    <button
-                                        onClick={() => navigate(item.url)}
-                                        className="ml-2"
-                                    >
+                                    <button onClick={() => navigate(item.url)} className="rounded-lg mr-3 bg-violet-950 py-2 px-5 text-white hover:bg-violet-600 focus:ring-blue-900">
                                         {item.name}
                                     </button>
                                 </li>
